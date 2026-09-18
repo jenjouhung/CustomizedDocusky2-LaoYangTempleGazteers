@@ -1,0 +1,17 @@
+.DS_Store
+**/.DS_Store
+__pycache__/
+*.py[cod]
+node_modules/
+
+# 本機資料、研究來源與版本備份不納入公開程式庫
+workspace-data/
+source-data/
+backups/
+previous-release/
+洛陽伽藍記建庫相關資料/
+
+# 臨時與本機工具輸出
+*.log
+.coverage
+.pytest_cache/

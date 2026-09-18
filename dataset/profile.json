@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "datasetId": "luoyang-qielan-ji",
+  "site": {
+    "title": "洛陽伽藍記",
+    "description": "《洛陽伽藍記》寺院詮釋資料全文查詢、後分類與視覺化研究平台",
+    "canonicalUrl": "http://127.0.0.1:4180/",
+    "language": "zh-Hant",
+    "openGraphLocale": "zh_TW"
+  },
+  "excel": {"sheet": "first", "headerRow": 1, "dataStartRow": 2, "maxFileBytes": 52428800, "maxExpandedBytes": 536870912, "maxRecords": 50000, "maxFullTextCharacters": 200000},
+  "fields": [
+    {"name": "編號", "type": "identifier", "required": true},
+    {"name": "寺名(title)", "type": "text", "required": true},
+    {"name": "寺院性質(doctype)", "type": "text"},
+    {"name": "創建紀年(time_dynasty)", "type": "text"},
+    {"name": "創建西元年(year_for_grouping)", "type": "integer-or-text"},
+    {"name": "建寺者姓名(author)", "type": "text"},
+    {"name": "建寺者身分(metatags/Author_Identity)", "type": "text"},
+    {"name": "建寺者官銜(metatags/Author_Official_Title)", "type": "text"},
+    {"name": "佛寺所在方位(geo_level1)", "type": "text"},
+    {"name": "佛寺所在區(geo_level2)", "type": "text"},
+    {"name": "佛寺所在相對位置（geo_level3）", "type": "text"},
+    {"name": "規模等級(docclass)", "type": "text"},
+    {"name": "捨宅與否(metatags/Contribution)", "type": "text"},
+    {"name": "佛塔層數(metatags/Pagoda_floors)", "type": "text"},
+    {"name": "特殊造像(metatags/Special_Statues)", "type": "multi-text"},
+    {"name": "傳說軼聞(metatags/Legends)", "type": "multi-text"},
+    {"name": "歷史事件(metatags/Events)", "type": "multi-text"},
+    {"name": "全文", "type": "marked-text", "required": true}
+  ],
+  "roles": {
+    "key": "編號", "title": "寺名(title)", "fullText": "全文",
+    "resultDisplay": ["寺名(title)", "編號", "創建西元年(year_for_grouping)", "寺院性質(doctype)", "建寺者姓名(author)", "建寺者身分(metatags/Author_Identity)", "佛寺所在方位(geo_level1)", "佛寺所在區(geo_level2)", "全文"],
+    "metadataFacets": ["寺院性質(doctype)", "創建紀年(time_dynasty)", "創建西元年(year_for_grouping)", "建寺者姓名(author)", "建寺者身分(metatags/Author_Identity)", "建寺者官銜(metatags/Author_Official_Title)", "佛寺所在方位(geo_level1)", "佛寺所在區(geo_level2)", "捨宅與否(metatags/Contribution)", "佛塔層數(metatags/Pagoda_floors)", "特殊造像(metatags/Special_Statues)", "傳說軼聞(metatags/Legends)", "歷史事件(metatags/Events)"],
+    "sort": {"field": "創建西元年(year_for_grouping)", "direction": "asc", "tieBreaker": "編號"}
+  },
+  "multiValue": {"separator": ";", "alternateSeparators": ["；"]},
+  "tagFacets": [
+    {"name": "PersonName", "label": "人名"}, {"name": "LocName", "label": "地名"},
+    {"name": "Date", "label": "時間"}, {"name": "Office", "label": "職官"},
+    {"name": "Udef_General", "label": "將軍名號"}, {"name": "Udef_King", "label": "諸王名號"},
+    {"name": "Udef_Governor", "label": "刺史名號"}, {"name": "Udef_Prefect", "label": "太守名號"},
+    {"name": "Udef_Construct", "label": "建物"}, {"name": "Udef_Products", "label": "物產"},
+    {"name": "Udef_Garden", "label": "園池"}
+  ],
+  "pageSize": 10,
+  "tools": {"textTagger": {"targetFile": "洛陽伽藍記建庫相關資料/洛陽伽藍記詮釋資料-re10-normalized.xlsx", "targetSheet": null, "targetColumn": "全文", "tagListFile": "洛陽伽藍記建庫相關資料/洛陽伽藍記詞彙集合2020-11-17.xlsx", "outputFile": "洛陽伽藍記建庫相關資料/洛陽伽藍記詮釋資料-re11-marked.xlsx"}}
+}

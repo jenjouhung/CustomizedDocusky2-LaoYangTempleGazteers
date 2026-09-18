@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "sources": {
+    "plain": "洛陽伽藍記建庫相關資料/洛陽伽藍記詮釋資料-re10-normalized.xlsx",
+    "marked": "洛陽伽藍記建庫相關資料/洛陽伽藍記詮釋資料-re11-marked.xlsx"
+  },
+  "expected": {
+    "recordCount": 48,
+    "columnCount": 18,
+    "tagFacets": {
+      "PersonName": {"termCount": 157, "documentCount": 37},
+      "LocName": {"termCount": 66, "documentCount": 29},
+      "Date": {"termCount": 67, "documentCount": 30},
+      "Office": {"termCount": 100, "documentCount": 34},
+      "Udef_General": {"termCount": 13, "documentCount": 13},
+      "Udef_King": {"termCount": 23, "documentCount": 17},
+      "Udef_Governor": {"termCount": 15, "documentCount": 15},
+      "Udef_Prefect": {"termCount": 4, "documentCount": 2},
+      "Udef_Construct": {"termCount": 81, "documentCount": 30},
+      "Udef_Products": {"termCount": 78, "documentCount": 30},
+      "Udef_Garden": {"termCount": 14, "documentCount": 9}
+    }
+  }
+}

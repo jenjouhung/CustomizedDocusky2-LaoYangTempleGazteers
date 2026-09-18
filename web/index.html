@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>洛陽伽藍記</title>
+  <meta name="description" content="《洛陽伽藍記》寺院詮釋資料全文查詢、後分類與視覺化研究平台">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="洛陽伽藍記">
+  <meta property="og:title" content="洛陽伽藍記">
+  <meta property="og:description" content="《洛陽伽藍記》寺院詮釋資料全文查詢、後分類與視覺化研究平台">
+  <meta property="og:url" content="http://127.0.0.1:4180/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="洛陽伽藍記">
+  <meta name="twitter:description" content="《洛陽伽藍記》寺院詮釋資料全文查詢、後分類與視覺化研究平台">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="visualization.css">
+</head>
+
+<body>
+  <header class="masthead">
+    <div>
+      <h1 id="title">洛陽伽藍記</h1>
+    </div>
+    <nav>
+      <details id="admin">
+        <summary>系統管理 ▾</summary>
+        <div id="admin-menu">
+          <p id="version-label" aria-live="polite">讀取資料中</p><button id="versions">切換資料版本</button><button id="import"
+            hidden>匯入修訂版</button><button id="backup" hidden>備份</button><button id="restore-backup"
+            hidden>還原備份</button><button id="build" hidden>建立網路版</button><button id="stop" hidden>停止服務</button>
+        </div>
+      </details>
+    </nav>
+  </header>
+  <main>
+    <div id="analysis-view">
+      <section class="query-area">
+        <form id="query-form"><label for="query">全文查詢</label><input id="query" placeholder="關鍵詞、AND、OR、NOT"
+            autocomplete="off"><button class="primary">執行查詢</button><button type="button"
+            id="clear-input">清除輸入</button><button type="button" id="reset">重新查詢</button></form>
+        <div id="message" role="status" aria-live="polite"></div>
+        <div class="summary"><strong id="count"></strong>
+          <div id="conditions"></div>
+        </div>
+      </section>
+      <div class="workspace">
+        <aside aria-label="後分類">
+          <div id="facet-type" class="facet-type" role="tablist" aria-label="後分類類型"><button type="button" role="tab"
+              data-type="Metadata" aria-selected="true">後設資料</button><button type="button" role="tab" data-type="Tag"
+              aria-selected="false">內文標籤</button></div><label for="field">後分類欄位</label><select id="field"></select>
+          <div class="facet-tools"><label for="facet-sort">排序</label><select id="facet-sort">
+              <option value="count-desc">依文件數降冪</option>
+              <option value="count-asc">依文件數升冪</option>
+              <option value="title-asc">依標題升冪</option>
+              <option value="title-desc">依標題降冪</option>
+            </select><button type="button" id="clear-facets">清除全部</button></div>
+          <div class="facet-assist">
+            <p class="hint">同欄多選採 OR</p><button type="button" id="visualize">視覺化</button>
+          </div>
+          <div id="facet-values"></div>
+          <div id="facet-actions" hidden><button id="apply" class="primary">過濾</button><button
+              id="cancel-facets">取消</button></div>
+        </aside>
+        <div id="splitter" role="separator" aria-label="調整後分類寬度" aria-orientation="vertical" tabindex="0"></div>
+        <section class="results-pane">
+          <div class="result-toolbar">
+            <div id="result-count"></div>
+            <div id="pagination" aria-label="分頁導覽"></div>
+          </div>
+          <div id="records"></div>
+        </section>
+      </div>
+    </div>
+    <section id="visualization-view" hidden aria-labelledby="visualization-heading">
+      <div class="viz-navigation"><button type="button" id="viz-back">← 返回分析</button>
+        <div>
+          <h2 id="visualization-heading">資料視覺化</h2>
+          <p id="viz-source"></p>
+        </div>
+        <div class="viz-tabs" role="tablist" aria-label="圖形類型"><button type="button" role="tab" aria-selected="true"
+            aria-controls="viz-chart" data-view="bar">長條圖</button><button type="button" role="tab" aria-selected="false"
+            aria-controls="viz-chart" data-view="bubble" tabindex="-1">泡泡圖</button><button type="button" role="tab"
+            aria-selected="false" disabled>圓餅圖（後續開放）</button><button type="button" role="tab" aria-selected="false"
+            aria-controls="viz-chart" data-view="table" tabindex="-1">資料表格</button></div>
+      </div>
+      <div class="viz-controls"><label for="viz-search">搜尋項目<input id="viz-search" type="search" autocomplete="off"
+            placeholder="輸入項目名稱"></label><button type="button" id="viz-clear-search">清除搜尋</button><label
+          for="viz-sort">排序<select id="viz-sort">
+            <option value="count-desc">依文件數降冪</option>
+            <option value="title-asc">依標籤升冪</option>
+          </select></label><label class="viz-zoom" for="viz-zoom">縮放 <output id="viz-zoom-value"
+            for="viz-zoom">100%</output><input id="viz-zoom" type="range" min="10" max="200" step="1"
+            value="100"></label><label for="viz-palette">配色<select id="viz-palette">
+            <option value="pine">松煙青</option>
+            <option value="ochre">石窟赭</option>
+            <option value="indigo">靛青灰</option>
+            <option value="moss">苔綠</option>
+          </select></label></div>
+      <div class="viz-status-row">
+        <div id="viz-status" aria-live="polite"></div>
+        <div id="viz-legend" hidden aria-label="泡泡圖文件數色階"></div><button type="button" id="viz-export" hidden>↓ 匯出 CSV</button><button type="button" id="viz-fullscreen" aria-label="全螢幕顯示視覺化專區" title="全螢幕顯示">全螢幕</button>
+      </div>
+      <div id="viz-selection" hidden aria-live="polite"></div>
+      <div id="viz-focus-detail" aria-live="polite"></div>
+      <div id="viz-chart" class="viz-chart" role="region" tabindex="0" aria-label="長條圖"></div>
+    </section>
+  </main>
+  <dialog id="dialog"><button id="close-dialog">關閉</button>
+    <div id="dialog-body"></div>
+  </dialog>
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>

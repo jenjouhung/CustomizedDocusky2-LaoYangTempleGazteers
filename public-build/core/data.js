@@ -1,0 +1,6 @@
+export async function json(url){const r=await fetch(url,{cache:'no-cache'});if(!r.ok)throw new Error(`資料讀取失敗：${r.status} ${url}`);return r.json()}
+export async function loadVersion(id){const root=`data/${id}/`;const [config,index,facets,rows,meta]=await Promise.all(['config','index','facets','rows','version'].map(n=>json(root+n+'.json')));return {config,index,facets,rows,meta,record:n=>json(root+`records/${n}.json`),text:n=>config.schema>=2?json(root+`texts/${n}.json`):json(root+`records/${n}.json`).then(r=>({text:String(r[config.text]??''),tags:[]}))}}
+export async function compareVersions(a,b){const key=a.config.key;const am=new Map(a.rows.map((r,i)=>[String(r[key]),i])),bm=new Map(b.rows.map((r,i)=>[String(r[key]),i]));const result={added:[],removed:[],changed:[],fields:{}};
+ for(const [id,i] of am){if(!bm.has(id)){result.removed.push(id);continue}const [ar,br]=await Promise.all([a.record(i),b.record(bm.get(id))]);const changes=[];ar.forEach((v,k)=>{if(JSON.stringify(v)!==JSON.stringify(br[k])){changes.push({field:a.config.headers[k],before:v,after:br[k]});result.fields[k]=(result.fields[k]||0)+1}});if(changes.length)result.changed.push({id,changes})}
+ for(const id of bm.keys())if(!am.has(id))result.added.push(id);return result;
+}
